@@ -1,30 +1,27 @@
 # AGENTS.md
 
-## Project purpose
+## Creative direction (supersedes the original graybox task)
 
-Perspective Crime is a compact, playful, **non-AI** 3D puzzle game. Prioritize an actual player-facing interaction over abstractions, research scaffolding, or speculative features.
+**Perspective Crime is a finished-feeling, original geometric illusion puzzle game, not a technical proof of concept.** Take *Monument Valley* as a reference for the ambition, elegance and playful impossible-space design—not as a source to copy levels, art, characters or assets.
 
-## Technical baseline
+The author owns the design. Invent the level concept, spatial geometry, transformations, perspective tricks, puzzle logic, pacing, camera, art direction and player experience. The previous two-island/anchor/bridge graybox is **optional scaffolding**, not a requirement. You may rebuild or discard it. No prescribed level narrative, layout, trigger keys, projection tolerance, bridge shape or camera scheme remains binding.
 
-- Godot 4.x (minimum target 4.3), GDScript; default project renderer: Compatibility.
-- Run offline, from a clean clone, on **Linux and Windows**.
-- Prefer procedural primitives and minimal scenes. Do not add external services, paid dependencies, telemetry, generated binaries, or large assets for the initial prototype.
-- Keep `project.godot`, the main scene, and all required files committed; exclude Godot caches via `.gitignore`.
-- Avoid extra CI workflows, hashes, redundant audit files, or elaborate contribution gates in this small project.
+## What matters
 
-## Gameplay invariants
+- Make **one exceptionally polished, coherent, memorable playable level**. Spend substantial effort on its composition, mechanics, art, transitions and feel rather than producing many rough levels.
+- Use real geometry, projection, topology, occlusion, moving architecture and/or other spatial mathematics as you see fit. The result should offer a genuine, understandable spatial surprise and a satisfying solution.
+- **Actively use an available image-generation model to create original art assets** where useful: concept art, textures, environments, decorative illustrations or UI artwork. Curate and integrate them into the game; generated images alone are not a game. Combine them with procedural/vector/3D art as appropriate.
+- Aim for near-release quality: consistent visual identity, intentional framing and lighting, refined controls and feedback, graceful onboarding, polished animation/transitions, suitable audio if useful, complete beginning-to-ending flow, restart/replay, and no placeholder/debug UI in the final experience. Decide how to realize these; they are quality expectations, not a fixed feature checklist.
+- Favor an actual playable build, documentation sufficient to run it, and convincing screenshots or a gameplay video. Automated tests help but **do not substitute for visual inspection and human playtesting**.
 
-1. Project 3D anchors through the active `Camera3D` to compare screen-space positions.
-2. Exclude anchors behind the camera or outside the viewport. Handle occlusion explicitly, with a consistent rule.
-3. A successful alignment produces an actual traversable world-space bridge with a `StaticBody3D` and direct `CollisionShape3D` child.
-4. The player travels via regular physics; never teleport the player to fake a crossing.
-5. For the first prototype, restrict bridge endpoints to equal walkable height. Do not imply arbitrary perspective coincidence guarantees physically possible geometry.
-6. The player must receive clear ready/not-ready feedback and be able to reset a softlocked attempt.
+## Engineering
 
-## First PR
+Godot 4 is the existing engine; you can reorganize the project and write the architecture that best supports the experience. Keep it reproducible from a clean clone and practical to run on Linux and Windows. Produce a suitable playable export or packaged build when ready. State the engine version, tested environment, and any remaining platform limits accurately.
 
-Implement [docs/PR1_SPEC.md](docs/PR1_SPEC.md). Open a PR against `main`; include concise reproduction steps, visual proof (screenshot/GIF or a short clip), and what you actually tested. Use actual run results, not unverified claims.
+This is **not an LLM Agent product**. Image generation is a development tool for making visual assets, not a mandatory gameplay feature. Use assets you can legally distribute and record credits/licenses where relevant.
 
-## Style
+## Collaboration
 
-Prefer explicit small GDScript components, readable world-space math, and a single end-to-end level. Game feel and clarity matter more than expansive architecture. Document genuine limitations directly.
+Continue work through a PR to `main`. The existing draft PR #1 can be developed into the release-quality version; a substantial redesign is welcome. Do not stop at a working headless physics demo. Include a concise description, run instructions, visual evidence, and tested results; do not merge your own PR.
+
+**The creative design and level content are your decision.** The benchmark is whether a stranger could open the game, understand it, enjoy it, and feel that it is a crafted finished work.
