@@ -147,6 +147,9 @@ func try_build(focused: bool) -> bool:
 	var deck_a := Vector3(A.x, 0, A.z)
 	var deck_b := Vector3(B.x, 0, B.z)
 	bridge = make_box("PerspectiveBridge", (deck_a + deck_b) * 0.5 - Vector3(0, 0.15, 0), Vector3(1.35, 0.3, deck_a.distance_to(deck_b) + 0.6), Color("d0b77e"))
+	# Lift only the visible mesh 3 mm to prevent coplanar overlap flicker.
+	# The physics deck remains exactly level with both islands.
+	bridge.get_child(0).position.y = 0.003
 	bridge.rotation.y = atan2(delta.x, delta.z)
 	return true
 
@@ -182,12 +185,12 @@ func _physics_process(_delta: float) -> void:
 		player.enabled = false
 
 func _process(delta: float) -> void:
-	var speed := 0.4 if Input.is_physical_key_pressed(KEY_SHIFT) else 1.0
-	yaw += (float(Input.is_physical_key_pressed(KEY_LEFT)) - float(Input.is_physical_key_pressed(KEY_RIGHT))) * delta * speed
-	pitch += (float(Input.is_physical_key_pressed(KEY_UP)) - float(Input.is_physical_key_pressed(KEY_DOWN))) * delta * speed
+	var speed := 0.4 if Input.is_key_pressed(KEY_SHIFT) else 1.0
+	yaw += (float(Input.is_key_pressed(KEY_LEFT)) - float(Input.is_key_pressed(KEY_RIGHT))) * delta * speed
+	pitch += (float(Input.is_key_pressed(KEY_UP)) - float(Input.is_key_pressed(KEY_DOWN))) * delta * speed
 	update_camera()
 	var ready := alignment_valid()
-	var focused := Input.is_physical_key_pressed(KEY_SHIFT)
+	var focused := Input.is_key_pressed(KEY_SHIFT)
 	if won:
 		status.text = "LEVEL COMPLETE  /  THE ALIBI HOLDS"
 		detail.text = "You crossed real geometry. Press R to play again."
@@ -248,7 +251,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.physical_keycode == KEY_ESCAPE:
 			release_mouse()
 		elif event.physical_keycode == KEY_E:
-			try_build(Input.is_physical_key_pressed(KEY_SHIFT))
+			try_build(Input.is_key_pressed(KEY_SHIFT))
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			dragging = event.pressed
@@ -258,6 +261,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			distance += 1.0
 	elif event is InputEventMouseMotion and dragging:
-		var sensitivity := 0.002 if Input.is_physical_key_pressed(KEY_SHIFT) else 0.007
+		var sensitivity := 0.002 if Input.is_key_pressed(KEY_SHIFT) else 0.007
 		yaw -= event.relative.x * sensitivity
 		pitch += event.relative.y * sensitivity

@@ -61,10 +61,26 @@ across the bridge after changing the camera, visible win-state activation,
 persistence, and two build/cross/reset cycles. Test movement uses the same player
 physics code, with a deterministic direction input; it never teleports across.
 
-**Not yet verified:** interactive desktop input/rendering, Windows execution,
-and standalone exports. This environment has no working graphical display, so
-there is no screenshot/recording claimed as visual proof. Linux headless tests
-are not a substitute for a desktop playtest. The project uses only standard
-Godot 4 APIs and is intended to run offline on both desktop platforms.
+### Linux desktop playtest
+
+Also tested the actual graphical application on the cloud Linux desktop using
+Godot 4.6.3, Compatibility renderer, Mesa llvmpipe. Launched from the editor and
+standalone, then completed two consecutive keyboard-driven build/cross/reset
+cycles on the final gameplay revision. Verified orbit keys, Shift+E construction,
+WASD traversal, visible completion, reset, and wheel zoom. Testing exposed remapped
+arrow-key physical codes; arrows and Shift now use logical keys, while WASD keeps
+physical-key movement. A regression test covers an arrow with no physical mapping.
+
+Captured screenshots, not illustrations or simulated gameplay:
+
+![Committed bridge after camera rotation](docs/screenshots/bridge.jpg)
+![Completed by walking across the bridge](docs/screenshots/complete.jpg)
+![Reset removes the bridge and returns the player](docs/screenshots/reset.jpg)
+
+**Not yet verified:** Windows execution, standalone exports, and every possible
+mouse-drag/focus-loss interaction. Linux uses software-rendered OpenGL here, not a
+hardware GPU performance test. The cloud machine has no audio device; Godot falls
+back to dummy audio (the game contains no sound). Subsequent desktop runs used
+`--audio-driver Dummy`. No video recording is claimed.
 
 See [PR1_SPEC](docs/PR1_SPEC.md) for the original acceptance checklist.

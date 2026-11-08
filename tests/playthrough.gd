@@ -12,9 +12,9 @@ func frames(count: int) -> void:
 	for i in count:
 		await physics_frame
 
-func key(code: int, pressed: bool) -> void:
+func key(code: int, pressed: bool, physical: int = -1) -> void:
 	var event := InputEventKey.new()
-	event.physical_keycode = code
+	event.physical_keycode = code if physical == -1 else physical
 	event.keycode = code
 	event.pressed = pressed
 	Input.parse_input_event(event)
@@ -44,6 +44,12 @@ func run() -> void:
 	level.distance = 100.0
 	level.update_camera()
 	check(is_equal_approx(level.pitch, 0.02) and is_equal_approx(level.distance, 24.0), "camera bounds clamp orbit and zoom")
+	level.reset_level()
+	var old_yaw: float = level.yaw
+	key(KEY_LEFT, true, 0)
+	await frames(8)
+	key(KEY_LEFT, false, 0)
+	check(level.yaw > old_yaw + 0.05, "logical arrow works without physical mapping")
 	level.reset_level()
 	# No bridge: walk into the void through exactly the ordinary movement code.
 	level.player.test_direction = Vector3.RIGHT
