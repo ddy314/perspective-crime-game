@@ -1,39 +1,30 @@
-# PR #1 — First Playable Perspective Bridge
+# Perspective Crime — revised delivery brief
 
-**Goal:** deliver one reproducible, complete puzzle in Godot 4, using the current starter scene.
+**This brief replaces the former “first playable perspective bridge” specification.** The original requirements for two fixed islands, 26-pixel anchor tolerance, Shift+E activation, one particular bridge body, and predetermined path are withdrawn.
 
-## Deliverable
+## Target
 
-- Orbit/zoom camera with controllable input and reliable bounds.
-- A visible player character with ordinary `CharacterBody3D` movement, gravity, jumping (if needed), and ground collision.
-- Two separated islands and one goal marker; leaving the ground resets to a safe spawn.
-- Two world-space anchor positions. Holding **Shift** reveals alignment state calculated from the current camera projection; if the anchors are offscreen, behind camera, or disallowed by the chosen occlusion rule, alignment must be invalid.
-- Press **E** while valid to construct one walkable, level world-space bridge with a `StaticBody3D`, `BoxMesh`, and `CollisionShape3D`.
-- The character can walk across the actual bridge and reach a visible WIN/LEVEL COMPLETE state.
-- **R** resets state (bridge and player); no irreversible soft lock.
-- Simple UI: input hints, alignment ready/not ready, and completed state.
-- Concise README changes describing final controls and verified run steps.
+Create an **original, near-release-quality single-level geometric puzzle game**, taking inspiration from the spatial elegance, optical trickery and polish of *Monument Valley*. The author is free to choose the actual level, architecture, rules, visual language and puzzle.
 
-## Math and physics expectations
+Make thoughtful use of geometric knowledge to construct the puzzle and spatial illusions. Choose mechanisms that can be communicated through player experience rather than requiring an explanation of the code. Strong visual design and the feeling of discovery are as important as mathematical validity.
 
-- Use the real `Camera3D.unproject_position()` projection and pixel-distance tolerance; no camera-position hardcoded success switch.
-- Restrict the first puzzle to approximately equal-height anchor decks. Calculate the bridge length/orientation from the world-space anchor endpoints and include small overlap into both platforms.
-- Collision works even if the camera changes after commitment. The world-space bridge must persist until reset or deliberate replacement.
-- Prevent lock when anchors are behind camera/outside frustum, and document visibility handling.
-- Never teleport the character across the gap; walking/physics is the proof that the bridge is real.
+One extraordinary level is preferred over five ordinary ones. It is acceptable—and encouraged—to spend serious effort polishing a single scene until it feels like a small finished game.
 
-## Verification requested
+## Creative autonomy
 
-1. Run the clean clone on desktop with Godot 4.x (specify exact tested version and OS).
-2. Before alignment, `E` creates nothing and the void is not passable.
-3. On valid alignment, feedback turns ready; pressing `E` creates a visible, collidable bridge.
-4. Move across and trigger completion with the bridge remaining in place.
-5. Reset, repeat; invalid/offscreen/occluded alignment is rejected.
-6. Check a Linux launch where available; otherwise state clearly that it was not tested.
-7. Include a screenshot/GIF or short recording and a brief PR description.
+You may replace the existing graybox and redesign the entire interaction. Do not treat the starter camera, bridges, keyboard controls, stage name, level narrative or mechanism as constraints. You do not need to ask for a story/level specification; choose and develop it yourself.
 
-## Scope
+**Call the image-generation tools/models available in your own environment to produce original artwork.** Use them purposefully for textures, illustrations, decorative surfaces, background art, UI or visual exploration. Integrate the selected assets with 3D geometry and lighting into one coherent art direction.
 
-Make the *one* puzzle fun, legible and reliable. Do not implement all five levels, add ML/agents/online services, build a custom renderer, or create extensive CI. Feel free to adjust island placement and camera presets to make a convincing, solvable alignment experience.
+## Delivery bar
 
-Open a PR against `main` with this playable vertical slice. Do not merge it yourself.
+The result should be complete enough to show publicly as a game rather than as a prototype:
+- A cohesive playable experience from opening to conclusion, with clear onboarding and a memorable geometric puzzle.
+- Art direction, scene composition, purposeful camera behavior, polish in motion/interaction and useful sound/visual feedback.
+- Responsive controls, natural success/failure handling, reliable reset/replay, and sensible UX without placeholder/debug presentation.
+- Clean-clone run instructions and a readily playable export/build when feasible, with the exact platforms genuinely tested.
+- Real screenshots and a short gameplay video or equivalent visual evidence, plus concise PR notes.
+
+These are *outcomes*, not requirements to implement specific screens or controls. You choose the technical solution and may add features or dependencies that demonstrably improve the finished game.
+
+Keep work in the existing draft PR #1 (or a clearly linked replacement PR if major restructuring requires it). Do not mark as release-ready based solely on headless tests; actually inspect/play the rendered game. No self-merge.

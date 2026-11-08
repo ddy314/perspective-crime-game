@@ -1,86 +1,64 @@
-# Perspective Crime
+# The Folded Observatory
 
-**The Alibi:** a complete single-level, offline Godot 4 perspective puzzle.
-Line up two glowing anchor tips, commit a real bridge, then walk across to the
-mint-green exit. Everything is built from original procedural primitives.
-No account, network, paid asset, plugin, or service is needed.
+*A Perspective Crime miniature. Some distances exist only until you change your view.*
+
+A complete, original, offline geometric-illusion puzzle in Godot 4. Turn a floating observatory, join the silhouettes of disconnected paths, and guide its tiny astronomer through three celestial shrines. A quiet beginning, animated journey, and replayable ending form one short, coherent level.
 
 ## Play
 
-1. Install Godot **4.3 or newer** for Linux or Windows.
-2. Clone this repository and import `project.godot`. Press **F5**.
-   Alternatively, run `godot --path .` from the repository directory.
-3. Hold **Shift**. Lower the camera with **Down**, then orbit with **Left/Right**
-   until the cyan and amber tips overlap. The HUD reports the actual projected
-   pixel gap and turns green when ready. Focus slows camera input for precision.
-4. Keep holding Shift and press **E** to create the bridge.
-5. Raise the camera with **Up**, then use **WASD** (camera-relative) to cross
-   the bridge and enter the green exit. A visible LEVEL COMPLETE message appears.
-6. **R** restarts the entire puzzle, including the camera. Walking off a ledge
-   respawns the character on the start island without removing a committed bridge.
+Use a packaged Linux or Windows build, or install **Godot 4.6.3** and open `project.godot`, then press **F5**. From a clean clone:
 
-Other controls: **right mouse drag** orbits, **wheel** zooms, **Esc** releases
-mouse capture. Losing application focus also releases capture. No jumping is
-needed. Repeated E cannot duplicate a bridge; the bridge persists when the camera
-moves and after completion. There is no teleport across the gap.
+```sh
+godot --headless --path . --editor --import --quit
+godot --path .
+```
 
-Solution hint: view almost horizontally along the line between the islands.
-Either end of the line works. Hold Down to reach the camera's lower limit, then
-rotate until the lights overlap. After building, use a higher, oblique view to walk.
+No account, network connection, paid dependency, or AI service is used during play. The project uses Compatibility/OpenGL rendering. Build packages include the engine and do not require a Godot installation. See [build instructions](docs/BUILD.md).
 
-## Projection and collision
+- Click **Begin the journey**, or press **Space / Enter**.
+- **Q / E**, **Left / Right**, **A / D**, the on-screen arrows, or a horizontal drag turn the observatory between four views.
+- Watch the **two gold endpoint rings**. When they overlap, click the glowing destination or **Walk the fold**, or press **Space / Enter**.
+- **H / Need a nudge?** offers a contextual hint. **R / Restart** resets the journey, including an interrupted walk or turn.
+- **M / Sound** mutes or unmutes. **?** opens instructions; **Esc** closes them.
+- **Walk again** or **Space / Enter** after the ending starts a fresh journey.
 
-`Camera3D.unproject_position()` measures anchor separation, with a **26 px**
-tolerance at 720 px viewport height, scaled by the current viewport height.
-Behind-camera and out-of-frustum/offscreen points are rejected. A ray from the
-camera to each tip must miss all solid geometry, except the player. Glowing tips
-and decorative pylons have no colliders, so one does not reject the other when
-aligned. Thus opaque physical obstacles reject alignment, while decorative
-anchor tips are deliberately allowed to overlap.
+This is a contemplative miniature, not a free-roaming platformer. The astronomer walks constrained architectural routes; there is no WASD free movement, jumping, combat, failure penalty, or random puzzle generation. Each shrine asks you to discover one view of the same sculpture. A first visit takes a few minutes; a known solution is much shorter.
 
-The two decks are level at y=0. Elevated marker tips share y=1.4. Their x/z
-positions define the bridge endpoints; a 0.3-thick, 1.35-wide box extends 0.3 past
-each endpoint into the islands. Its position, length, and yaw come from those
-world-space endpoints. A StaticBody3D contains the matching BoxMesh and a direct
-CollisionShape3D child. The CharacterBody3D crosses using `move_and_slide()` and
-gravity. Only a fall or explicit restart resets the character position.
+<details><summary>Solution</summary>
+
+From a fresh journey, turn right to Noon and walk. Turn right to Dusk and walk. Turn right twice to Dawn and walk. Wait for each turn and traversal to finish. The hint button explains the next step without resetting progress.
+
+</details>
+
+## The spatial idea
+
+The paths are genuinely disconnected in 3D. Each pair of endpoints differs by a vector parallel to one orthographic viewing ray. At that view, their projections coincide even though they are separated in height and depth. `Camera3D.unproject_position()` measures the current screen-space gap; the game does **not** unlock traversal by looking up the selected view number. Offscreen, out-of-frustum, and behind-camera endpoints are rejected.
+
+The small gold circles are intentionally drawn above the architecture so that the puzzle remains legible when a tower obscures an endpoint. Occlusion is a presentation choice, not a raycast test. Once aligned, the camera is locked during traversal. The character moves continuously along the real paths and then along the projection-null depth segment: its world position changes while its screen position stays fixed. This is an intentional impossible-space topology transition, **not** a constructed physical bridge or rigid-body platforming simulation. Changing the view reveals the impossible connection.
+
+The revised project brief explicitly replaces the old two-island physics-bridge prototype. The previous bridge controls and claims no longer apply.
+
+## Art and sound
+
+The celestial painted backdrop was made with the available image-generation model specifically for this game, then curated and integrated behind original 3D architecture. All architecture, ornaments, character, lighting, UI, and animation are procedural. A quiet original synthesized pad, turning tone, footfalls, alignment chimes, and ending cadence accompany the journey. DejaVu Serif is redistributed with its license. See [asset provenance and generation prompt](assets/CREDITS.md).
 
 ## Verification
 
-Tested **Godot 4.6.3 stable (7d41c59c4), Debian GNU/Linux 13, headless**:
+Engine: **Godot 4.6.3 stable, 7d41c59c4**. Automated checks:
 
-```
+```sh
 godot --headless --path . --editor --import --quit
 godot --headless --path . --script tests/playthrough.gd
 ```
 
-The physics integration test runs at a 1280x720 viewport and checks invalid E,
-no hidden floor, fall recovery, real camera projection, solid obstruction,
-behind-camera/offscreen rejection, duplicate prevention, actual grounded walking
-across the bridge after changing the camera, visible win-state activation,
-persistence, and two build/cross/reset cycles. Test movement uses the same player
-physics code, with a deterministic direction input; it never teleports across.
+The test suite covers actual projected gaps, invalid views, offscreen/behind-camera rejection, continuous projection-null traversal, repeated activation protection, input dispatch, help modal, muted/reset states, interrupted animation reset, all three shrines, ending, and a second playthrough. See [playtest and delivery notes](docs/VERIFICATION.md) for the final measured results, graphical evidence, and platform limitations.
 
-### Linux desktop playtest
+## Capturing the actual game
 
-Also tested the actual graphical application on the cloud Linux desktop using
-Godot 4.6.3, Compatibility renderer, Mesa llvmpipe. Launched from the editor and
-standalone, then completed two consecutive keyboard-driven build/cross/reset
-cycles on the final gameplay revision. Verified orbit keys, Shift+E construction,
-WASD traversal, visible completion, reset, and wheel zoom. Testing exposed remapped
-arrow-key physical codes; arrows and Shift now use logical keys, while WASD keeps
-physical-key movement. A regression test covers an arrow with no physical mapping.
+```sh
+godot --path . -- --demo --capture-dir=/absolute/path/captures --quit-after-demo
+```
 
-Captured screenshots, not illustrations or simulated gameplay:
+The deterministic demo uses the same rotation and journey methods as play, rather than forcing the completion state. `F12` saves a real viewport screenshot when `--capture-dir` is set. Godot's `--write-movie /absolute/path/demo.avi --fixed-fps 30` can record the rendered demo and game audio; it is not a substitute for manually testing the controls.
 
-![Committed bridge after camera rotation](docs/screenshots/bridge.jpg)
-![Completed by walking across the bridge](docs/screenshots/complete.jpg)
-![Reset removes the bridge and returns the player](docs/screenshots/reset.jpg)
-
-**Not yet verified:** Windows execution, standalone exports, and every possible
-mouse-drag/focus-loss interaction. Linux uses software-rendered OpenGL here, not a
-hardware GPU performance test. The cloud machine has no audio device; Godot falls
-back to dummy audio (the game contains no sound). Subsequent desktop runs used
-`--audio-driver Dummy`. No video recording is claimed.
-
-See [PR1_SPEC](docs/PR1_SPEC.md) for the original acceptance checklist.
+No self-merge, deployment, telemetry, or runtime model integration is included.
