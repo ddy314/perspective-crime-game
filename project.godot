@@ -1,0 +1,18 @@
+; Perspective Crime — Godot 4 starter project.
+; Edited in the Godot editor after the initial import.
+config_version=5
+
+[application]
+
+config/name="Perspective Crime"
+run/main_scene="res://scenes/main.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
