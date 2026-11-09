@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://emjwkqfy0nph"
-path="res://.godot/imported/district-1-aligned.jpg-a48e669eee9fb86322c7d5295279a9cf.ctex"
+uid="uid://cx3tjiu6q6u2g"
+path="res://.godot/imported/tower-solved.jpg-2f3579092a2c566d2d121b5d16c95828.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/screenshots/chapter/district-1-aligned.jpg"
-dest_files=["res://.godot/imported/district-1-aligned.jpg-a48e669eee9fb86322c7d5295279a9cf.ctex"]
+source_file="res://docs/screenshots/chapter/tower-solved.jpg"
+dest_files=["res://.godot/imported/tower-solved.jpg-2f3579092a2c566d2d121b5d16c95828.ctex"]
 
 [params]
 

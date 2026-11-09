@@ -17,7 +17,7 @@ func _ready() -> void:
 	column.add_theme_constant_override("separation", 24)
 	add_child(column)
 	var title := Label.new()
-	title.text = "A LETTER TO NOWHERE" if not ending else "SOME PLACES LIVE IN LETTERS"
+	title.text = "A LETTER TO NOWHERE" if not ending else "✦"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 30)
 	column.add_child(title)

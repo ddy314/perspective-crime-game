@@ -3,6 +3,8 @@ extends Node3D
 signal changed
 const Art = preload("res://scripts/chapter/paper_art.gd")
 var kind := "hinge"
+var interactive := true
+var carrier_id := ""
 var value := 0.0
 var initial := 0.0
 var locked := false
@@ -22,17 +24,22 @@ func setup(type: String, at: Vector3, start: float, length: float = 4.0) -> void
 	part = Node3D.new()
 	add_child(part)
 	if kind == "hinge":
-		Art.box(part, Vector3(span, .18, .9), Vector3(span / 2, -.12, 0), Art.TEAL)
+		Art.box(part, Vector3(span, .18, .9), Vector3(span / 2, -.09, 0), Art.TEAL, true)
 		for i in range(1, int(span * 3)):
-			Art.box(part, Vector3(.025, .015, .86), Vector3(i / 3.0, -.015, 0), Art.GOLD)
+			Art.box(part, Vector3(.025, .015, .86), Vector3(i / 3.0, .01, 0), Art.GOLD)
 		Art.cylinder(self, .26, .28, Vector3.ZERO, Art.GOLD)
 	else:
-		Art.box(part, Vector3(2.2, .2, 1.2), Vector3(0, -.12, 0), Art.TEAL)
-		Art.box(self, Vector3(5.8, .08, .12), Vector3(0, -.4, 0), Art.GOLD)
+		Art.box(part, Vector3(2.2, .2, 1.4), Vector3(0, -.1, 0), Art.TEAL, true)
+		Art.box(self, Vector3(9.0 if kind == "shuttle" else 5.8, .08, .12), Vector3(0, -.4, 0), Art.GOLD)
+		if kind == "shuttle":
+			for x in [-.65,.65]:
+				for layer in range(3):
+					Art.box(part,Vector3(.4,.045,.3),Vector3(x,.035+layer*.05,-.45),Art.IVORY,true)
+				Art.box(part,Vector3(.05,.02,.32),Vector3(x,.17,-.45),Art.GOLD)
 		# Broken arch: the two moving piers visibly frame the impossible seam.
-		for z in [-.65, .65]:
-			Art.box(part, Vector3(.18, 2.2, .18), Vector3(0, 1.0, z), Art.IVORY)
-		Art.box(part, Vector3(.2, .18, 1.5), Vector3(0, 2.05, 0), Art.GOLD)
+		for z in ([-.65, .65] if kind == "slide" else []):
+			Art.box(part, Vector3(.18, 2.2, .18), Vector3(0, 1.0, z), Art.IVORY, true)
+		if kind == "slide": Art.box(part, Vector3(.2, .18, 1.5), Vector3(0, 2.05, 0), Art.GOLD, true)
 	handle = Node3D.new()
 	part.add_child(handle)
 	handle.position = Vector3(span * .6 if kind == "hinge" else 0.0, .28, 0)
@@ -45,7 +52,7 @@ func apply() -> void:
 	changed.emit()
 func adjust(delta: float) -> void:
 	if locked or busy: return
-	value = clampf(value + delta, -PI, PI) if kind == "hinge" else clampf(value + delta, -2.7, 2.7)
+	value = clampf(value + delta, -PI, PI) if kind == "hinge" else clampf(value + delta, -3.5 if kind == "shuttle" else -2.7, 3.5 if kind == "shuttle" else 2.7)
 	apply()
 func settle() -> void:
 	if kind == "hinge": value = snappedf(value, PI / 2.0)

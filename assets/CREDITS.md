@@ -28,3 +28,31 @@ Create a companion ENDING comic, using the supplied opening comic ONLY as style 
 ### Gameplay sky prompt
 
 Use case: stylized-concept. Asset type: original 16:10 landscape backdrop for an elegant folded-paper geometric puzzle game. Painterly cut-paper atmosphere matching warm ivory architecture, petrol teal and tiny muted gold accents. The center 80 percent of image must be empty low contrast deep muted teal negative space, smoothly graded with very subtle fibrous paper texture, because interactive 3D platforms will be drawn over it. Only along far left and right edges and bottom corners: a few VERY SMALL, distant hazy floating ivory folded-paper buildings and tiny fragments, softly fading into mist; these must be atmospheric not foreground subjects. Airy translucent soft teal cloud layers confined to lower outer edges; restrained scattered gold dust at outer edges. Quiet mysterious warm glow at extreme upper right, never bright in center. Sophisticated handcrafted paper relief quality, softly diffused ambient light. No foreground path, no characters, no stairs or buildings anywhere in central eighty percent. No words, symbols, signage, borders, captions, watermarks or UI. This is a calm background texture not a level illustration.
+
+## Chapter I sampled audio revision
+
+The chapter no longer plays the original synthesized ambience/align WAV cues.
+Its interaction sounds are samples from **Kenney Interface Sounds**, by Kenney,
+https://kenney.nl/assets/interface-sounds (CC0 1.0). Redistributed files:
+click_001, click_005, select_001, glass_001, glass_004, glass_005,
+confirmation_001 (OGG). Acquisition mirror:
+https://github.com/hipdiscovery/Free-Sound-Effects/tree/main/audio/kenney-interface.
+Original license copied to assets/audio/licenses/KENNEY_CC0.txt.
+
+Quiet milestone notes use the recorded **Meta Open Sound Piano** low-velocity
+C4/E4/G4/C5 samples, from Meta's official collection:
+https://github.com/facebookincubator/Meta-open-sound/tree/main/systems/instruments/meta-piano.
+Files INSPiano_Vel01_{C4,E4,G4,C5}_01.ogg, CC0 1.0, original license in
+assets/audio/licenses/META_CC0.txt. Both CC0 licenses allow commercial use,
+modification and redistribution, including these samples in source and builds.
+Attribution is supplied voluntarily. Godot applies conservative gain, low-pass
+and a small room reverb at playback; Kenney files are unchanged; Meta Opus-in-OGG samples are transcoded to Vorbis-in-OGG for Godot compatibility, with no pitch or timing change.
+
+Material foley uses unchanged Kenney CC0 recordings from **Impact Sounds**
+(footstep_wood_000/001/002) and **RPG Audio** (bookFlip2, bookPlace1, cloth1,
+creak1, creak2): https://kenney.nl/assets/impact-sounds and
+https://kenney.nl/assets/rpg-audio. Acquisition mirror:
+https://github.com/receptron/mulmocast-media/tree/main/soundeffects/kenney.
+Original licenses are retained as KENNEY_IMPACT_CC0.txt and KENNEY_RPG_CC0.txt.
+Footsteps follow actual physics travel, not attempted movement into a wall;
+mechanical sounds are sparse, quiet one-shots rather than a synthetic loop.

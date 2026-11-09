@@ -27,6 +27,7 @@ func motion(p: Vector2) -> void:
 	if not down: return
 	if not dragging and origin.distance_to(p) >= THRESHOLD:
 		dragging = true
+		last = origin
 		drag_started.emit(origin)
 	if dragging: dragged.emit(p - last)
 	last = p

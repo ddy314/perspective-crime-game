@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bja7xax7mqyji"
-path="res://.godot/imported/district-2-aligned.jpg-adf0bf6011ed2f950bd725455f225822.ctex"
+uid="uid://dxkubuvtr7saw"
+path="res://.godot/imported/lift-aboard.jpg-aa9f10c7015ecb73ce2f63a6ee4112d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/screenshots/chapter/district-2-aligned.jpg"
-dest_files=["res://.godot/imported/district-2-aligned.jpg-adf0bf6011ed2f950bd725455f225822.ctex"]
+source_file="res://docs/screenshots/chapter/lift-aboard.jpg"
+dest_files=["res://.godot/imported/lift-aboard.jpg-aa9f10c7015ecb73ce2f63a6ee4112d1.ctex"]
 
 [params]
 

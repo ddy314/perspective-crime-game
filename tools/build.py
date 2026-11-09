@@ -100,6 +100,8 @@ def package(platform, folder: Path, output: Path, engine_version: str, source):
     for name in ("GODOT_LICENSE.txt", "GODOT_COPYRIGHT.txt"):
         shutil.copy2(ROOT / "third_party" / name, licenses / name)
     shutil.copy2(ROOT / "assets/fonts/LICENSE.txt", licenses / "DEJAVU_LICENSE.txt")
+    for source_license in (ROOT / "assets/audio/licenses").glob("*.txt"):
+        shutil.copy2(source_license, licenses / source_license.name)
     shutil.copy2(ROOT / "assets/CREDITS.md", folder / "ASSET_CREDITS.md")
     manifest = dict(source, title="A Letter to Nowhere", project="Perspective Crime",
                     platform=label, engine=engine_version, export_preset=preset,

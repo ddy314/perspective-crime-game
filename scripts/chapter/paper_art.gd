@@ -10,7 +10,7 @@ static func material(color: Color) -> StandardMaterial3D:
 	m.metallic_specular = .15
 	m.roughness = .85
 	return m
-static func box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
+static func box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, solid: bool = false) -> MeshInstance3D:
 	var n := MeshInstance3D.new()
 	var mesh := BoxMesh.new()
 	mesh.size = size
@@ -18,6 +18,16 @@ static func box(parent: Node3D, size: Vector3, pos: Vector3, color: Color) -> Me
 	n.material_override = material(color)
 	n.position = pos
 	parent.add_child(n)
+	if solid:
+		var body := StaticBody3D.new()
+		body.collision_layer = 1
+		body.collision_mask = 2
+		n.add_child(body)
+		var shape := CollisionShape3D.new()
+		var box_shape := BoxShape3D.new()
+		box_shape.size = size
+		shape.shape = box_shape
+		body.add_child(shape)
 	return n
 static func cylinder(parent: Node3D, radius: float, height: float, pos: Vector3, color: Color) -> MeshInstance3D:
 	var n := MeshInstance3D.new()
