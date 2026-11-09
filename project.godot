@@ -1,10 +1,10 @@
-; The Folded Observatory — an original Perspective Crime miniature.
+; A Letter to Nowhere — an original Perspective Crime miniature.
 config_version=5
 
 [application]
-config/name="The Folded Observatory"
-config/description="A quiet journey through impossible space. Turn the world, join its silhouettes, and awaken three celestial lights."
-run/main_scene="res://scenes/main.tscn"
+config/name="A Letter to Nowhere"
+config/description="Carry an unaddressed letter through a city of folding streets. Drag architecture, find impossible seams, and deliver a disappearing place."
+run/main_scene="res://scenes/chapter.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [display]

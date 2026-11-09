@@ -1,64 +1,92 @@
-# The Folded Observatory
+# Perspective Crime: A Letter to Nowhere
 
-*A Perspective Crime miniature. Some distances exist only until you change your view.*
-
-A complete, original, offline geometric-illusion puzzle in Godot 4. Turn a floating observatory, join the silhouettes of disconnected paths, and guide its tiny astronomer through three celestial shrines. A quiet beginning, animated journey, and replayable ending form one short, coherent level.
+A playable Chapter I development build for Godot 4.6.3: an unaddressed letter,
+three forward-moving districts, and a city whose streets can be rearranged.
+The original **Folded Observatory** demo remains available at Git revision
+`21fd43954a277ebbe157229f23f387424a636bd3` and `scenes/main.tscn`.
 
 ## Play
 
-Use a packaged Linux or Windows build, or install **Godot 4.6.3** and open `project.godot`, then press **F5**. From a clean clone:
+Open `project.godot` in Godot 4.6.3 and press F5, or run `godot --path .`.
+The main scene is `scenes/chapter.tscn`.
+
+- Click **Enter the city** after the opening comic.
+- Drag the brass grips on teal streets to rotate actual architecture. Release
+  to snap. Drag the brass grip inside a tall facade to slide it along its rail.
+- Click a glowing landing to walk there along currently connected streets.
+  Dark landings are disconnected. Dragging never counts as a click.
+- In the final district, click the brass pin while standing on the central
+  landing to hold one of the linked streets still.
+- Top-left controls: restart district, help, sound, optional gentle hint.
+  Keyboard: R restarts the current district; M toggles audio; Esc closes help
+  and safely ends a captured gesture.
+- District entrances save automatically. The next district never needs a
+  completed district's apparatus. Replay after the closing comic starts over.
+
+Runs offline; no runtime AI, telemetry, accounts, or third-party services.
+Mouse and single-pointer touch events share a router. Touch hardware is untested.
+
+## Chapter structure
+
+1. **Folded streets:** three rigid rotating paper streets teach spatial
+   reconfiguration and landing-by-landing movement.
+2. **False facade:** hinged streets lead to a sliding architectural receiver.
+   Actual orthographic projection, not a camera index, creates the impossible
+   seam. The messenger crosses a continuous view-ray segment into another layer.
+3. **Undeliverable tower:** two coupled streets cannot simultaneously connect
+   until the messenger pins one at the central landing. Their geometry controls
+   the visible barrier; the local projection seam completes the delivery.
+
+Two original four-panel comics frame the journey. See `assets/CREDITS.md` for
+asset provenance. The research references are design inspirations, **not** claims
+of implementing the cited papers' general solvers.
+
+## Architecture
+
+- `input_router.gd`: pointer capture, click/drag threshold, touch mapping.
+- `spatial_mechanism.gd`: rigid street rotation, facade slide, locks and occupancy.
+- `walkable_graph.gd`: dynamic undirected graph and shortest valid routes.
+- `projection_seam.gd`: live Camera3D visibility and screen alignment validation.
+- `chapter_module.gd`: self-contained district geometry and connectivity.
+- `narrative_panels.gd`: opening/closing comics.
+- `chapter_hud.gd`: reachable destination and grip feedback, optional help.
+- `game_flow.gd`: constrained walking, forward transitions, saves and replay.
+
+Movement follows authored world-space routes with tweened positions. This is a
+constrained puzzle, not a free-physics platformer. The impossible seam deliberately
+changes depth along the camera ray. Decorative architecture does not occlude the
+screen-space interaction indicators. Geometry cannot change during walking, and
+an occupied receiving facade cannot be dragged away.
+
+## Verification and limits
+
+Godot 4.6.3 headless regression: **77 checks pass**. The test loads the actual
+chapter scene, solves every district, checks live camera projection, validates
+mandatory brace use, rejects disconnected destinations, and tests cancellation,
+reset during walking, ending and replay.
 
 ```sh
-godot --headless --path . --editor --import --quit
-godot --path .
+godot --headless --path . --script tests/chapter_playthrough.gd -- --no-save
 ```
 
-No account, network connection, paid dependency, or AI service is used during play. The project uses Compatibility/OpenGL rendering. Build packages include the engine and do not require a Godot installation. See [build instructions](docs/BUILD.md).
+Use `--no-save` for isolated tests; it prevents reading or writing player progress.
+A writable HOME/XDG data/config/cache directory is required by Godot itself.
 
-- Click **Begin the journey**, or press **Space / Enter**.
-- **Q / E**, **Left / Right**, **A / D**, the on-screen arrows, or a horizontal drag turn the observatory between four views.
-- Watch the **two gold endpoint rings**. When they overlap, click the glowing destination or **Walk the fold**, or press **Space / Enter**.
-- **H / Need a nudge?** offers a contextual hint. **R / Restart** resets the journey, including an interrupted walk or turn.
-- **M / Sound** mutes or unmutes. **?** opens instructions; **Esc** closes them.
-- **Walk again** or **Space / Enter** after the ending starts a fresh journey.
+This is a **development chapter**, not a claim of release readiness or a measured
+12–20 minute experience. No blind-player study or accessibility audit is claimed.
+Windows runtime verification, touch hardware, and hardware-GPU performance are
+not yet established. Graphical evidence and packaging results are recorded in
+`docs/CHAPTER_01_TESTING.md` as they are actually verified.
 
-This is a contemplative miniature, not a free-roaming platformer. The astronomer walks constrained architectural routes; there is no WASD free movement, jumping, combat, failure penalty, or random puzzle generation. Each shrine asks you to discover one view of the same sculpture. A first visit takes a few minutes; a known solution is much shorter.
-
-<details><summary>Solution</summary>
-
-From a fresh journey, turn right to Noon and walk. Turn right to Dusk and walk. Turn right twice to Dawn and walk. Wait for each turn and traversal to finish. The hint button explains the next step without resetting progress.
-
-</details>
-
-## The spatial idea
-
-The paths are genuinely disconnected in 3D. Each pair of endpoints differs by a vector parallel to one orthographic viewing ray. At that view, their projections coincide even though they are separated in height and depth. `Camera3D.unproject_position()` measures the current screen-space gap; the game does **not** unlock traversal by looking up the selected view number. Offscreen, out-of-frustum, and behind-camera endpoints are rejected.
-
-The small gold circles are intentionally drawn above the architecture so that the puzzle remains legible when a tower obscures an endpoint. Occlusion is a presentation choice, not a raycast test. Once aligned, the camera is locked during traversal. The character moves continuously along the real paths and then along the projection-null depth segment: its world position changes while its screen position stays fixed. This is an intentional impossible-space topology transition, **not** a constructed physical bridge or rigid-body platforming simulation. Changing the view reveals the impossible connection.
-
-The revised project brief explicitly replaces the old two-island physics-bridge prototype. The previous bridge controls and claims no longer apply.
-
-## Art and sound
-
-The celestial painted backdrop was made with the available image-generation model specifically for this game, then curated and integrated behind original 3D architecture. All architecture, ornaments, character, lighting, UI, and animation are procedural. A quiet original synthesized pad, turning tone, footfalls, alignment chimes, and ending cadence accompany the journey. DejaVu Serif is redistributed with its license. See [asset provenance and generation prompt](assets/CREDITS.md).
-
-## Verification
-
-Engine: **Godot 4.6.3 stable, 7d41c59c4**. Automated checks:
+## Build
 
 ```sh
-godot --headless --path . --editor --import --quit
-godot --headless --path . --script tests/playthrough.gd
+python3 tools/build.py --install-templates
 ```
 
-The test suite covers actual projected gaps, invalid views, offscreen/behind-camera rejection, continuous projection-null traversal, repeated activation protection, input dispatch, help modal, muted/reset states, interrupted animation reset, all three shrines, ending, and a second playthrough. See [playtest and delivery notes](docs/VERIFICATION.md) for the final measured results, graphical evidence, and platform limitations.
+Produces `ALetterToNowhere-linux-x86_64.zip` and
+`ALetterToNowhere-windows-x86_64.zip` outside the repository. Official Godot 4.6.3
+export templates are checksum-verified. Build manifests distinguish committed
+source from an uncommitted working tree. See `docs/BUILD.md` for details.
 
-## Capturing the actual game
-
-```sh
-godot --path . -- --demo --capture-dir=/absolute/path/captures --quit-after-demo
-```
-
-The deterministic demo uses the same rotation and journey methods as play, rather than forcing the completion state. `F12` saves a real viewport screenshot when `--capture-dir` is set. Godot's `--write-movie /absolute/path/demo.avi --fixed-fps 30` can record the rendered demo and game audio; it is not a substitute for manually testing the controls.
-
-No self-merge, deployment, telemetry, or runtime model integration is included.
+Continue through Draft PR #1; no self-merge.

@@ -15,7 +15,7 @@ import zipfile
 from install_export_templates import ARCHIVE_NAME, MEMBERS, VERSION, install
 
 ROOT = Path(__file__).resolve().parents[1]
-PRODUCT = "TheFoldedObservatory"
+PRODUCT = "ALetterToNowhere"
 PLATFORMS = {
     "linux": ("Linux x86_64", "linux-x86_64", PRODUCT + ".x86_64"),
     "windows": ("Windows x86_64", "windows-x86_64", PRODUCT + ".exe"),
@@ -83,14 +83,14 @@ def package(platform, folder: Path, output: Path, engine_version: str, source):
         start += "Requires Windows x86_64 and OpenGL 3.3 graphics support.\n"
         start += "This independent build is unsigned and Windows runtime testing is not claimed.\n"
     (folder / "START_HERE.txt").write_text(
-        "THE FOLDED OBSERVATORY\nA Perspective Crime game\n\n" + start
+        "A LETTER TO NOWHERE\nA Perspective Crime game\n\n" + start
         + "\nCONTROLS\n"
-        + "Begin: click Begin, or press Space / Enter.\n"
-        + "Rotate the observatory: Q / E, Left / Right, A / D, or drag the scene.\n"
-        + "Find a view where the gold endpoint rings overlap.\n"
-        + "Walk: click the glowing shrine or Walk the fold, or press Space / Enter.\n"
-        + "Hint: H. Restart: R. Sound toggle: M. Instructions: ?. Close help: Esc.\n"
-        + "After the ending: Walk again, or Space / Enter, starts a new journey.\n"
+        + "Click Enter the city to begin or resume at the saved district.\n"
+        + "Drag brass grips to rotate streets or slide a facade.\n"
+        + "Click glowing landings to walk along reachable paths.\n"
+        + "The brass pin in the final district holds a linked street still.\n"
+        + "Restart district: R. Sound: M. Help: ?. Close help: Esc.\n"
+        + "Replay is available after the ending comic.\n"
         + "\nThe experience runs completely offline.\n"
         + "Read SOURCE_README.md for the full controls, credits, and tested-platform limits.\n"
         + "\nEngine: " + engine_version + "\n", encoding="utf-8")
@@ -101,7 +101,7 @@ def package(platform, folder: Path, output: Path, engine_version: str, source):
         shutil.copy2(ROOT / "third_party" / name, licenses / name)
     shutil.copy2(ROOT / "assets/fonts/LICENSE.txt", licenses / "DEJAVU_LICENSE.txt")
     shutil.copy2(ROOT / "assets/CREDITS.md", folder / "ASSET_CREDITS.md")
-    manifest = dict(source, title="The Folded Observatory", project="Perspective Crime",
+    manifest = dict(source, title="A Letter to Nowhere", project="Perspective Crime",
                     platform=label, engine=engine_version, export_preset=preset,
                     files={path.relative_to(folder).as_posix(): sha256(path)
                            for path in sorted(folder.rglob("*")) if path.is_file()})

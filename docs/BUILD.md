@@ -1,15 +1,15 @@
-# Building The Folded Observatory
+# Building A Letter to Nowhere
 
 ## Play a packaged release
 
 Unzip the complete package first. No Godot installation, account, network
 connection, or additional asset download is needed to play.
 
-- **Linux x86_64:** run `play.sh` (or `./TheFoldedObservatory.x86_64`). If the
+- **Linux x86_64:** run `play.sh` (or `./ALetterToNowhere.x86_64`). If the
   extraction tool dropped executable permissions, run
-  `chmod +x play.sh TheFoldedObservatory.x86_64` first.
-- **Windows x86_64:** open `TheFoldedObservatory.exe`. Keep
-  `TheFoldedObservatory.pck` beside the executable. This independent build is
+  `chmod +x play.sh ALetterToNowhere.x86_64` first.
+- **Windows x86_64:** open `ALetterToNowhere.exe`. Keep
+  `ALetterToNowhere.pck` beside the executable. This independent build is
   unsigned. A successful Windows export is not a Windows runtime test.
 - Both packages use Godot's Compatibility renderer and require OpenGL 3.3
   support. See the main README for the Linux environment actually tested.
@@ -57,8 +57,8 @@ python3 tools/build.py --platform windows
 The script imports assets, exports release builds from the tracked
 `export_presets.cfg`, packages credits and licenses, and writes:
 
-- `TheFoldedObservatory-linux-x86_64.zip`
-- `TheFoldedObservatory-windows-x86_64.zip`
+- `ALetterToNowhere-linux-x86_64.zip`
+- `ALetterToNowhere-windows-x86_64.zip`
 - Adjacent `.zip.sha256` checksums
 - `import.log`, `export-linux.log`, `export-windows.log`, and `engine.log`
 

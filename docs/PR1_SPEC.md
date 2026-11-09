@@ -1,3 +1,5 @@
+> **Historical brief:** This was the scope for the original one-level release-quality miniature. After playtesting, the next assignment is the larger [Chapter I: A Letter to Nowhere](CHAPTER_01_LETTER_TO_NOWHERE.md). It supersedes any narrow one-puzzle or interaction requirements below. Retain this for revision history, not as the current implementation ceiling.
+
 # Perspective Crime — revised delivery brief
 
 **This brief replaces the former “first playable perspective bridge” specification.** The original requirements for two fixed islands, 26-pixel anchor tolerance, Shift+E activation, one particular bridge body, and predetermined path are withdrawn.

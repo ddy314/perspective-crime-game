@@ -1,3 +1,11 @@
+## Current production target — Chapter I
+
+The next requested work is a **substantial new chapter**, not another graybox or a few added micro-puzzles. Read [Chapter I: A Letter to Nowhere](docs/CHAPTER_01_LETTER_TO_NOWHERE.md) and the [2024–2026 geometry research notes](docs/GEOMETRIC_MECHANICS_REFERENCES.md).
+
+The prior Folded Observatory PR #1 is a valued demo, not the feature and interaction ceiling. The player should **drag to manipulate architecture and click/tap to walk**, with a wordless or near-wordless narrative (short opening/closing comics), a cohesive chapter motif, a compound spatial puzzle and forward-only progression without mandatory backtracking. Organize mechanisms and chapter sections as reusable modules. Choose exact puzzle designs independently, keeping the chapter's visual story coherent.
+
+The updated chapter brief takes precedence over any older fixed-camera, single-fold, on-screen instruction or narrow first-playable specification. Preserve the previous demo revision through Git history. Continue in the existing draft PR or a clearly linked successor branch; do not self-merge.
+
 # AGENTS.md
 
 ## Creative direction (supersedes the original graybox task)
