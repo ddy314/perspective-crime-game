@@ -1,3 +1,5 @@
+> **Current next chapter (2026-11-09):** [A Letter to Nowhere](CHAPTER_01_LETTER_TO_NOWHERE.md). The new brief is the active production direction after the Folded Observatory demo. It specifies direct drag manipulation of architecture, click-to-walk navigation, near-wordless comics, varied research-inspired mechanisms, forward-only narrative progression, and modular chapter design. The earlier notes below describe the prior miniature and should not constrain the new chapter.
+
 # Perspective Crime — creative design direction
 
 ## Ambition
